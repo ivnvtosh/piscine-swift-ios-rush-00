@@ -123,6 +123,8 @@ class ProfileViewController: UIViewController {
 		self.stackView.addArrangedSubview(self.labelGrade)
 
 		setupViewConstraints()
+        
+        self.modalPresentationStyle = .fullScreen
     }
 
 
