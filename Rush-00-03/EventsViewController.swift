@@ -10,12 +10,13 @@ import UIKit
 class EventsViewController: UIViewController, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Event.allEvents.count
+//        return Event.allEvents.count
+		return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "eventCell", for: indexPath)
-        cell.textLabel?.text = Event.allEvents[indexPath.row].title
+//        cell.textLabel?.text = Event.allEvents[indexPath.row].title
         return cell
     }
     

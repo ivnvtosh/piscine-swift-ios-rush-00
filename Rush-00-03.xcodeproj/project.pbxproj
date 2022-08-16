@@ -8,28 +8,60 @@
 
 /* Begin PBXBuildFile section */
 		2A9D4F5428ABDF1300F0119B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9D4F5328ABDF1300F0119B /* AppDelegate.swift */; };
-		2A9D4F5828ABDF1300F0119B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9D4F5728ABDF1300F0119B /* ViewController.swift */; };
 		2A9D4F5D28ABDF1300F0119B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A9D4F5C28ABDF1300F0119B /* Assets.xcassets */; };
-		2A9D4F6028ABDF1300F0119B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A9D4F5E28ABDF1300F0119B /* LaunchScreen.storyboard */; };
 		2A9D4F6828ABE18200F0119B /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9D4F6728ABE18200F0119B /* SignInViewController.swift */; };
 		2A9D4F6B28ABED1100F0119B /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9D4F6928ABED1100F0119B /* Event.swift */; };
 		2A9D4F6C28ABED1100F0119B /* EventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9D4F6A28ABED1100F0119B /* EventsViewController.swift */; };
 		2A9D4F6F28AC070F00F0119B /* Coalition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9D4F6D28AC070F00F0119B /* Coalition.swift */; };
 		2A9D4F7028AC070F00F0119B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9D4F6E28AC070F00F0119B /* ProfileViewController.swift */; };
+		85979D7428AC0C30006A1C42 /* CursUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85979D6528AC0C30006A1C42 /* CursUser.swift */; };
+		85979D7528AC0C30006A1C42 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85979D6628AC0C30006A1C42 /* Profile.swift */; };
+		85979D7628AC0C30006A1C42 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85979D6728AC0C30006A1C42 /* User.swift */; };
+		85979D7728AC0C30006A1C42 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85979D6828AC0C30006A1C42 /* Project.swift */; };
+		85979D7828AC0C30006A1C42 /* Campus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85979D6928AC0C30006A1C42 /* Campus.swift */; };
+		85979D7928AC0C30006A1C42 /* CampusUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85979D6A28AC0C30006A1C42 /* CampusUser.swift */; };
+		85979D7A28AC0C30006A1C42 /* ExpertisUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85979D6B28AC0C30006A1C42 /* ExpertisUser.swift */; };
+		85979D7B28AC0C30006A1C42 /* LanguageUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85979D6C28AC0C30006A1C42 /* LanguageUser.swift */; };
+		85979D7C28AC0C30006A1C42 /* Achievement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85979D6D28AC0C30006A1C42 /* Achievement.swift */; };
+		85979D7D28AC0C30006A1C42 /* Curs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85979D6E28AC0C30006A1C42 /* Curs.swift */; };
+		85979D7E28AC0C30006A1C42 /* TokenInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85979D6F28AC0C30006A1C42 /* TokenInfo.swift */; };
+		85979D7F28AC0C30006A1C42 /* ProjectUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85979D7028AC0C30006A1C42 /* ProjectUser.swift */; };
+		85979D8028AC0C30006A1C42 /* Languag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85979D7128AC0C30006A1C42 /* Languag.swift */; };
+		85979D8128AC0C30006A1C42 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85979D7228AC0C30006A1C42 /* Token.swift */; };
+		85979D8228AC0C30006A1C42 /* Skill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85979D7328AC0C30006A1C42 /* Skill.swift */; };
+		85979D8628AC0C5B006A1C42 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85979D8528AC0C5B006A1C42 /* Service.swift */; };
+		85A23EC228AC10CB00143E53 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A23EC128AC10CB00143E53 /* MainViewController.swift */; };
+		85A23EC428AC358A00143E53 /* Waitlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A23EC328AC358A00143E53 /* Waitlist.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2A9D4F5028ABDF1300F0119B /* Rush-00-03.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Rush-00-03.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A9D4F5328ABDF1300F0119B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		2A9D4F5728ABDF1300F0119B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		2A9D4F5C28ABDF1300F0119B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		2A9D4F5F28ABDF1300F0119B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2A9D4F6128ABDF1300F0119B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2A9D4F6728ABE18200F0119B /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		2A9D4F6928ABED1100F0119B /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		2A9D4F6A28ABED1100F0119B /* EventsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsViewController.swift; sourceTree = "<group>"; };
 		2A9D4F6D28AC070F00F0119B /* Coalition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coalition.swift; sourceTree = "<group>"; };
 		2A9D4F6E28AC070F00F0119B /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		85979D6528AC0C30006A1C42 /* CursUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CursUser.swift; sourceTree = "<group>"; };
+		85979D6628AC0C30006A1C42 /* Profile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		85979D6728AC0C30006A1C42 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		85979D6828AC0C30006A1C42 /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
+		85979D6928AC0C30006A1C42 /* Campus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Campus.swift; sourceTree = "<group>"; };
+		85979D6A28AC0C30006A1C42 /* CampusUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CampusUser.swift; sourceTree = "<group>"; };
+		85979D6B28AC0C30006A1C42 /* ExpertisUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpertisUser.swift; sourceTree = "<group>"; };
+		85979D6C28AC0C30006A1C42 /* LanguageUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageUser.swift; sourceTree = "<group>"; };
+		85979D6D28AC0C30006A1C42 /* Achievement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Achievement.swift; sourceTree = "<group>"; };
+		85979D6E28AC0C30006A1C42 /* Curs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Curs.swift; sourceTree = "<group>"; };
+		85979D6F28AC0C30006A1C42 /* TokenInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenInfo.swift; sourceTree = "<group>"; };
+		85979D7028AC0C30006A1C42 /* ProjectUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectUser.swift; sourceTree = "<group>"; };
+		85979D7128AC0C30006A1C42 /* Languag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Languag.swift; sourceTree = "<group>"; };
+		85979D7228AC0C30006A1C42 /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
+		85979D7328AC0C30006A1C42 /* Skill.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Skill.swift; sourceTree = "<group>"; };
+		85979D8528AC0C5B006A1C42 /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		85A23EC128AC10CB00143E53 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		85A23EC328AC358A00143E53 /* Waitlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Waitlist.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,19 +94,43 @@
 		2A9D4F5228ABDF1300F0119B /* Rush-00-03 */ = {
 			isa = PBXGroup;
 			children = (
-				2A9D4F6728ABE18200F0119B /* SignInViewController.swift */,
-				2A9D4F6928ABED1100F0119B /* Event.swift */,
-				2A9D4F6A28ABED1100F0119B /* EventsViewController.swift */,
 				2A9D4F5328ABDF1300F0119B /* AppDelegate.swift */,
-				2A9D4F6D28AC070F00F0119B /* Coalition.swift */,
+				85A23EC128AC10CB00143E53 /* MainViewController.swift */,
+				2A9D4F6728ABE18200F0119B /* SignInViewController.swift */,
 				2A9D4F6E28AC070F00F0119B /* ProfileViewController.swift */,
-				2A9D4F5728ABDF1300F0119B /* ViewController.swift */,
+				2A9D4F6A28ABED1100F0119B /* EventsViewController.swift */,
+				2A9D4F6D28AC070F00F0119B /* Coalition.swift */,
+				85979D8528AC0C5B006A1C42 /* Service.swift */,
+				85979D6428AC0C30006A1C42 /* Model */,
 				2A9D4F5C28ABDF1300F0119B /* Assets.xcassets */,
-				2A9D4F5E28ABDF1300F0119B /* LaunchScreen.storyboard */,
 				2A9D4F6128ABDF1300F0119B /* Info.plist */,
 			);
 			path = "Rush-00-03";
 			sourceTree = "<group>";
+		};
+		85979D6428AC0C30006A1C42 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2A9D4F6928ABED1100F0119B /* Event.swift */,
+				85A23EC328AC358A00143E53 /* Waitlist.swift */,
+				85979D6528AC0C30006A1C42 /* CursUser.swift */,
+				85979D6628AC0C30006A1C42 /* Profile.swift */,
+				85979D6728AC0C30006A1C42 /* User.swift */,
+				85979D6828AC0C30006A1C42 /* Project.swift */,
+				85979D6928AC0C30006A1C42 /* Campus.swift */,
+				85979D6A28AC0C30006A1C42 /* CampusUser.swift */,
+				85979D6B28AC0C30006A1C42 /* ExpertisUser.swift */,
+				85979D6C28AC0C30006A1C42 /* LanguageUser.swift */,
+				85979D6D28AC0C30006A1C42 /* Achievement.swift */,
+				85979D6E28AC0C30006A1C42 /* Curs.swift */,
+				85979D6F28AC0C30006A1C42 /* TokenInfo.swift */,
+				85979D7028AC0C30006A1C42 /* ProjectUser.swift */,
+				85979D7128AC0C30006A1C42 /* Languag.swift */,
+				85979D7228AC0C30006A1C42 /* Token.swift */,
+				85979D7328AC0C30006A1C42 /* Skill.swift */,
+			);
+			path = Model;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -134,7 +190,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2A9D4F6028ABDF1300F0119B /* LaunchScreen.storyboard in Resources */,
 				2A9D4F5D28ABDF1300F0119B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -147,27 +202,33 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A9D4F6F28AC070F00F0119B /* Coalition.swift in Sources */,
+				85A23EC228AC10CB00143E53 /* MainViewController.swift in Sources */,
+				85979D8628AC0C5B006A1C42 /* Service.swift in Sources */,
 				2A9D4F6B28ABED1100F0119B /* Event.swift in Sources */,
-				2A9D4F5828ABDF1300F0119B /* ViewController.swift in Sources */,
+				85979D8028AC0C30006A1C42 /* Languag.swift in Sources */,
 				2A9D4F5428ABDF1300F0119B /* AppDelegate.swift in Sources */,
+				85979D7A28AC0C30006A1C42 /* ExpertisUser.swift in Sources */,
+				85979D7E28AC0C30006A1C42 /* TokenInfo.swift in Sources */,
+				85979D7C28AC0C30006A1C42 /* Achievement.swift in Sources */,
+				85979D7928AC0C30006A1C42 /* CampusUser.swift in Sources */,
+				85979D8228AC0C30006A1C42 /* Skill.swift in Sources */,
 				2A9D4F7028AC070F00F0119B /* ProfileViewController.swift in Sources */,
+				85979D7428AC0C30006A1C42 /* CursUser.swift in Sources */,
+				85979D7D28AC0C30006A1C42 /* Curs.swift in Sources */,
+				85979D7B28AC0C30006A1C42 /* LanguageUser.swift in Sources */,
 				2A9D4F6828ABE18200F0119B /* SignInViewController.swift in Sources */,
+				85979D7728AC0C30006A1C42 /* Project.swift in Sources */,
+				85979D8128AC0C30006A1C42 /* Token.swift in Sources */,
+				85A23EC428AC358A00143E53 /* Waitlist.swift in Sources */,
+				85979D7828AC0C30006A1C42 /* Campus.swift in Sources */,
+				85979D7528AC0C30006A1C42 /* Profile.swift in Sources */,
+				85979D7628AC0C30006A1C42 /* User.swift in Sources */,
 				2A9D4F6C28ABED1100F0119B /* EventsViewController.swift in Sources */,
+				85979D7F28AC0C30006A1C42 /* ProjectUser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		2A9D4F5E28ABDF1300F0119B /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				2A9D4F5F28ABDF1300F0119B /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		2A9D4F6228ABDF1300F0119B /* Debug */ = {
@@ -291,13 +352,13 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9CMM63TRQL;
+				DEVELOPMENT_TEAM = RQDWVF4978;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Rush-00-03/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -307,7 +368,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -318,13 +379,13 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9CMM63TRQL;
+				DEVELOPMENT_TEAM = RQDWVF4978;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Rush-00-03/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -334,7 +395,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

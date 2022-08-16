@@ -6,119 +6,193 @@
 //
 
 import UIKit
+import WebKit
 
 class SignInViewController: UIViewController {
 
-    private var contentSize: CGSize {
-        CGSize(width: self.view.frame.width,
-               height: self.view.frame.height)
-    }
-    
-    private lazy var scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
+	var webViewConstraint: [NSLayoutConstraint]?
 
-        scrollView.contentSize = self.contentSize
-        scrollView.showsHorizontalScrollIndicator = false
-        scrollView.showsVerticalScrollIndicator = false
+	var profile: Profile?
+	var events: Events?
 
-        return scrollView
-    }()
+	private lazy var webView: WKWebView = {
+		webView =  WKWebView()
 
-    private lazy var contentView: UIView = {
-        let contentView = UIView()
+		ApiManager.shared.getCode() { request in
+			guard let request = request else {
+				return
+			}
 
-        contentView.backgroundColor = .systemGray6
-        contentView.backgroundColor = UIColor(patternImage: UIImage(named: "42 background login")!)
+			self.webView.load(request)
+		}
 
-        return contentView
-    }()
-    
-    private lazy var stackView: UIStackView = {
-        let stackView = UIStackView()
+		return webView
+	}()
 
-        stackView.axis = .vertical
-        stackView.alignment = .center
-        stackView.spacing = 5
+	class Delegate: NSObject, URLSessionDataDelegate {
+		   func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
+			   guard let queueLabel = OperationQueue.current?.underlyingQueue?.label else { return }
+			   print(queueLabel)
+		}
+	}
 
-        return stackView
-    }()
-    
-//  MARK: - Content
-    private lazy var imageView: UIImageView = {
-        let imageView = UIImageView()
+	override func viewDidLoad() {
+		super.viewDidLoad()
 
-        imageView.image = UIImage(named: "42 logo white")
-        imageView.contentMode = .scaleAspectFill
+		self.view.addSubview(self.webView)
+		webView.navigationDelegate = self
+	}
 
-        return imageView
-    }()
-    
-    @objc func logInAction(_ sender : UIButton) {
-        
-        let second = EventsViewController()
-        second.title = "Event"
-        
-        let navVC = UINavigationController(rootViewController: second)
-        navVC.modalPresentationStyle = .fullScreen
-        
-        present(navVC, animated: true)
-        
-        
-    }
-    
-    private lazy var loginButton: UIButton = {
-        let loginButton = UIButton(frame: CGRect(x: 0, y: 0, width: 300.00, height: 30.00))
-        
-        loginButton.backgroundColor = UIColor(named: "42 green")
-        loginButton.setTitle("SIGN IN", for: .normal)
-        loginButton.setTitleColor(.white, for: .normal)
-        loginButton.addTarget(self, action: #selector(logInAction(_:)), for:.touchUpInside)
-        
-        return loginButton
-    }()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
+	override func viewDidLayoutSubviews() {
+		webView.frame = view.bounds
+		setupViewConstraints()
+	}
 
-        self.view.addSubview(self.scrollView)
-        self.scrollView.addSubview(self.contentView)
-        self.contentView.addSubview(self.stackView)
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
 
-        self.stackView.addArrangedSubview(self.imageView)
-        self.stackView.addArrangedSubview(self.loginButton)
 
-        setupViewConstraints()
 
-        self.modalPresentationStyle = .fullScreen
-    }
-    
-    override func viewDidLayoutSubviews() {
-        scrollView.frame = self.view.bounds
-        contentView.frame.size = self.contentSize
-    }
+	func goToTableControler(profile: Profile, events: Events) {
+		print(events)
+		// Something...
+
+
+	}
+
+
+
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+	//		|
+
 }
 
-// MARK: - Constraints
+
+//        MARK: - Constraints
 extension SignInViewController {
 
-    private func setupViewConstraints() {
-        self.stackView.translatesAutoresizingMaskIntoConstraints = false
+	private func setupViewConstraints() {
+		webViewConstraint = [
+			self.webView.topAnchor.constraint(equalTo: view.topAnchor),
+			self.webView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+			self.webView.leftAnchor.constraint(equalTo: view.leftAnchor),
+			self.webView.rightAnchor.constraint(equalTo: view.rightAnchor),
+							]
+		NSLayoutConstraint.activate(webViewConstraint!)
 
-        NSLayoutConstraint.activate([
-            self.stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            self.stackView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
-            self.stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
-                                    ])
+	}
 
-        NSLayoutConstraint.activate([
-            self.imageView.widthAnchor.constraint(equalToConstant: 200),
-            self.imageView.heightAnchor.constraint(equalToConstant: 200)
-                                    ])
-        
-        NSLayoutConstraint.activate([
-            self.loginButton.widthAnchor.constraint(equalToConstant: 200),
-            self.loginButton.heightAnchor.constraint(equalToConstant: 50)
-                                    ])
-    }
+}
+
+extension SignInViewController: WKNavigationDelegate {
+
+	func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+
+		if let _ = navigationAction.request.url?.host {
+			guard let url =  navigationAction.request.url else {
+				decisionHandler(.cancel)
+				return
+			}
+
+			let strings = url.absoluteString.components(separatedBy: "code=")
+
+			if strings.count == 2 {
+				let code = strings[1]
+	
+				ApiManager.shared.getToken(code: code) { token in
+					guard let token = token else {
+						return
+					}
+
+					ApiManager.shared.accessToken = token.accessToken
+				}
+				sleep(1)
+				ApiManager.shared.getMe { profile in
+					guard let profile = profile else {
+						return
+					}
+
+					self.profile = profile
+				}
+				sleep(1)
+				ApiManager.shared.getEvents(userId: profile!.id!) { events in
+					guard let events = events else {
+						return
+					}
+
+					self.events = events
+				}
+				sleep(1)
+				self.goToTableControler(profile: self.profile!, events: self.events!)
+
+				dismiss(animated: true)
+				decisionHandler(.cancel)
+				return
+			}
+
+			decisionHandler(.allow)
+			return
+
+		}
+
+		decisionHandler(.cancel)
+	}
+
 }
 
