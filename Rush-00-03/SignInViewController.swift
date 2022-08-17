@@ -18,7 +18,7 @@ class SignInViewController: UIViewController {
 	private lazy var webView: WKWebView = {
 		webView =  WKWebView()
 
-		ApiManager.shared.getCode() { request in
+		API42Manager.shared.getCode() { request in
 			guard let request = request else {
 				return
 			}
@@ -155,31 +155,43 @@ extension SignInViewController: WKNavigationDelegate {
 			if strings.count == 2 {
 				let code = strings[1]
 	
-				ApiManager.shared.getToken(code: code) { token in
+				API42Manager.shared.getToken(code: code) { token, error in
+					if let error = error {
+						print(error)
+						return
+					}
+
 					guard let token = token else {
 						return
 					}
 
-					ApiManager.shared.accessToken = token.accessToken
-				}
-				sleep(1)
-				ApiManager.shared.getMe { profile in
-					guard let profile = profile else {
-						return
-					}
+					API42Manager.shared.accessToken = token.accessToken
+					API42Manager.shared.getMe { profile, error in
+						if let error = error {
+							print(error)
+							return
+						}
 
-					self.profile = profile
-				}
-				sleep(1)
-				ApiManager.shared.getEvents(userId: profile!.id!) { events in
-					guard let events = events else {
-						return
-					}
+						guard let profile = profile else {
+							return
+						}
 
-					self.events = events
+						self.profile = profile
+						API42Manager.shared.getEvents(userId: profile.id!) { events, error in
+							if let error = error {
+								print(error)
+								return
+							}
+
+							guard let events = events else {
+								return
+							}
+
+							self.events = events
+							self.goToTableControler(profile: self.profile!, events: self.events!)
+						}
+					}
 				}
-				sleep(1)
-				self.goToTableControler(profile: self.profile!, events: self.events!)
 
 				dismiss(animated: true)
 				decisionHandler(.cancel)

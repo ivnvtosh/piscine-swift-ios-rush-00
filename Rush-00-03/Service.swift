@@ -7,43 +7,67 @@
 
 import Foundation
 
-//   MARK: - ApiType
-private enum ApiType {
+
+//   MARK: - API42Error
+private enum API42Error: Error {
+
+	case invalidURL
+	case noData
+	case failedToDecode
+	case invalidRequest
+
+}
+
+
+//      MARK: - API42Type
+private enum API42Type {
 
 	case v2Me
 	case v2UsersUserIdEvents(Int)
-	case tokenInfo
-	case token(String)
-	case code
 
-	var baseURL: String {
+	case oauthTokenInfo
+	case oauthToken(String)
+	case oauthAuthorize
+
+	private var uid: String {
+		return "9a335f9166cbc3de28c99b211113646e9fa1c637145037542f5ff56b210518f2"
+	}
+
+	private var secret: String {
+		return "d084c222c677d5e48c06a439576873c86675dfb8a4c03d827e86d2c37de42e19"
+	}
+
+	private var baseURL: String {
 		return "https://api.intra.42.fr/"
 	}
 
-	var path: String {
+	private var redirectURI: String {
+		return "https://profile.intra.42.fr"
+	}
+
+	private var path: String {
 		switch self {
 		case .v2Me:
 			return "v2/me"
 		case .v2UsersUserIdEvents(let userId):
 			return "/v2/users/\(userId)/events"
-		case .tokenInfo:
+		case .oauthTokenInfo:
 			return "oauth/token/info"
-		case .token:
+		case .oauthToken:
 			return "oauth/token"
-		case .code:
+		case .oauthAuthorize:
 			return "oauth/authorize"
 		}
 	}
 
-	var headers: [String : String] {
+	private var headers: [String : String] {
 		switch self {
-		case .token:
+		case .oauthToken:
 			return ["Content-Type" : "application/json"]
-		case .code:
+		case .oauthAuthorize:
 			return ["Content-Type" : "application/json"]
 		default:
-			guard let accessToken = ApiManager.shared.accessToken else {
-				print("HEADERS WTF")
+			guard let accessToken = API42Manager.shared.accessToken else {
 				return [ : ]
 			}
 
@@ -51,24 +75,20 @@ private enum ApiType {
 		}
 	}
 
-//	client_credentials
-//	authorization_code
-
-	var parametrs: [String: String] {
+	private var parametrs: Parametrs {
 		switch self {
-		case .token(let code):
+		case .oauthToken(let code):
 			return ["grant_type"    : "authorization_code",
-					"client_id"     : "\(ApiManager.shared.uid)",
-					"client_secret" : "\(ApiManager.shared.secret)",
+					"client_id"     : "\(uid)",
+					"client_secret" : "\(secret)",
 					"code"          : "\(code)",
-					"redirect_uri"  : "https://api.intra.42.fr",
-//					"state"         : ""
+					"redirect_uri"  : "\(redirectURI)",
+					"state"         : "a_very_long_random_string_witchmust_be_unguessable",
 				   ]
-		case .code:
+		case .oauthAuthorize:
 			return [
-					"client_id"     : "\(ApiManager.shared.uid)",
-//					"client_secret" : "\(ApiManager.shared.secret)",
-					"redirect_uri"  : "http%3A%2F%2Flocalhost%3A1919%2Fusers%2Fauth%2Fft%2Fcallback",
+					"client_id"     : "\(uid)",
+					"redirect_uri"  : "\(redirectURI)",
 					"response_type" : "code",
 					"scope"			: "public",
 					"state"         : "a_very_long_random_string_witchmust_be_unguessable",
@@ -78,22 +98,22 @@ private enum ApiType {
 		}
 	}
 
-	var method: String {
+	private var method: String {
 		switch self {
 		case .v2Me:
 			return "GET"
 		case .v2UsersUserIdEvents:
 			return "GET"
-		case .tokenInfo:
+		case .oauthTokenInfo:
 			return "GET"
-		case .token:
+		case .oauthToken:
 			return "POST"
-		case .code:
+		case .oauthAuthorize:
 			return "GET"
 		}
 	}
 
-	var request: URLRequest? {
+	public var request: URLRequest? {
 		let baseURL = URL(string: baseURL)
 
 		guard let url = URL(string: path, relativeTo: baseURL) else {
@@ -114,105 +134,58 @@ private enum ApiType {
 
 }
 
-//    MARK: - ApiManager
-class ApiManager {
 
-	static let shared = ApiManager()
+//    MARK: - API42Manager
+class API42Manager {
 
-	public let uid = "9a335f9166cbc3de28c99b211113646e9fa1c637145037542f5ff56b210518f2"
-	public let secret = "d084c222c677d5e48c06a439576873c86675dfb8a4c03d827e86d2c37de42e19"
+	static let shared = API42Manager()
 
 	public var accessToken: String?
 
-	public func getMe(completion: @escaping (Profile?) -> Void)  {
-		guard let request = ApiType.v2Me.request else {
-			completion(nil)
+	private func executeRequest<T: Decodable>(with type: API42Type, completion: @escaping (T?, Error?) -> Void)  {
+		guard let request = type.request else {
+			completion(nil, API42Error.invalidRequest)
 			return
 		}
 
 		URLSession.shared.dataTask(with: request) { data, response, error in
 			if let error = error {
-				print(error)
-				completion(nil)
+				completion(nil, error)
 			}
 
 			guard let data = data else {
-				print("No data available")
-				completion(nil)
+				completion(nil, API42Error.noData)
 				return
 			}
 
-			if let profile = try? JSONDecoder().decode(Profile.self, from: data) {
-				completion(profile)
-			} else {
-				print(data, String(data: data, encoding: .utf8) ?? "*unknown encoding*")
-				completion(nil)
-			}
-
-		}.resume()
-	}
-
-	public func getEvents(userId: Int, completion: @escaping (Events?) -> Void) {
-		guard let request = ApiType.v2UsersUserIdEvents(userId).request else {
-			completion(nil)
-			return
-		}
-
-		URLSession.shared.dataTask(with: request) { data, response, error in
-			if let error = error {
-				print(error)
-				completion(nil)
-			}
-
-			guard let data = data else {
-				print("No data available")
-				completion(nil)
+			guard let profile = try? JSONDecoder().decode(T.self, from: data) else {
+				print(data, String(data: data, encoding: .utf8) ?? "Unknown encoding <--")
+				completion(nil, API42Error.failedToDecode)
 				return
 			}
 
-			if let profile = try? JSONDecoder().decode(Events.self, from: data) {
-				completion(profile)
-			} else {
-				print(data, String(data: data, encoding: .utf8) ?? "*unknown encoding*")
-				completion(nil)
-			}
-
+			completion(profile, nil)
 		}.resume()
 	}
 
-	func getTokenInfo(completion: @escaping (TokenInfo?) -> Void) {
-		guard let request = ApiType.tokenInfo.request else {
-			completion(nil)
-			return
-		}
-
-		URLSession.shared.dataTask(with: request) { data, response, error in
-			if let error = error {
-				print(error)
-				completion(nil)
-			}
-
-			guard let data = data else {
-				print("No data available")
-				completion(nil)
-				return
-			}
-
-			if let tokenInfo = try? JSONDecoder().decode(TokenInfo.self, from: data) {
-				completion(tokenInfo)
-			} else {
-				print("Failed to decode")
-				completion(nil)
-			}
-		}.resume()
+	public func getMe(completion: @escaping (Profile?, Error?) -> Void)  {
+		executeRequest(with: API42Type.v2Me, completion: completion)
 	}
 
-	func getToken(code: String, completion: @escaping (Token?) -> Void) {
+	public func getEvents(userId: Int, completion: @escaping (Events?, Error?) -> Void) {
+		executeRequest(with: API42Type.v2UsersUserIdEvents(userId), completion: completion)
+	}
+
+	func getTokenInfo(completion: @escaping (TokenInfo?, Error?) -> Void) {
+		executeRequest(with: API42Type.oauthTokenInfo, completion: completion)
+	}
+
+	func getToken(code: String, completion: @escaping (Token?, Error?) -> Void) {
 		guard let url = URL(string: "https://api.intra.42.fr/" +
 									"oauth/token" +
 									"?grant_type=authorization_code" +
-									"&client_id=\(ApiManager.shared.uid)" +
-									"&client_secret=\(ApiManager.shared.secret)" +
+									"&client_id=9a335f9166cbc3de28c99b211113646e9fa1c637145037542f5ff56b210518f2" +
+									"&client_secret=d084c222c677d5e48c06a439576873c86675dfb8a4c03d827e86d2c37de42e19" +
 									"&code=\(code)" +
 									"&redirect_uri=https://profile.intra.42.fr") else {
 							return
@@ -223,22 +196,21 @@ class ApiManager {
 		
 		URLSession.shared.dataTask(with: request) { data, response, error in
 			if let error = error {
-				print(error)
-				completion(nil)
+				completion(nil, error)
 			}
 
 			guard let data = data else {
 				print("No data available")
-				completion(nil)
+				completion(nil, API42Error.noData)
 				return
 			}
 
 			if let token = try? JSONDecoder().decode(Token.self, from: data) {
-				completion(token)
+				completion(token, nil)
 			} else {
 				print(data, String(data: data, encoding: .utf8) ?? "*unknown encoding*")
 				print("Failed to decode")
-				completion(nil)
+				completion(nil, API42Error.failedToDecode)
 			}
 		}.resume()
 
@@ -277,7 +249,7 @@ class ApiManager {
 	func getCode(completion: @escaping (URLRequest?) -> Void) {
 		guard let url = URL(string: "https://api.intra.42.fr/" +
 									"oauth/authorize" +
-									"?client_id=\(ApiManager.shared.uid)" +
+									"?client_id=9a335f9166cbc3de28c99b211113646e9fa1c637145037542f5ff56b210518f2" +
 									"&redirect_uri=https://profile.intra.42.fr" +
 									"&response_type=code") else {
 			return
@@ -296,4 +268,7 @@ class ApiManager {
 	}
 
 }
+
+
+typealias Parametrs = [String : Any]
 
