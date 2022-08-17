@@ -18,7 +18,12 @@ class SignInViewController: UIViewController {
 	private lazy var webView: WKWebView = {
 		webView =  WKWebView()
 
-		API42Manager.shared.getCode() { request in
+		API42Manager.shared.getCode() { request, error in
+			if let error = error {
+				print(error)
+				return
+			}
+
 			guard let request = request else {
 				return
 			}
@@ -28,13 +33,6 @@ class SignInViewController: UIViewController {
 
 		return webView
 	}()
-
-	class Delegate: NSObject, URLSessionDataDelegate {
-		   func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
-			   guard let queueLabel = OperationQueue.current?.underlyingQueue?.label else { return }
-			   print(queueLabel)
-		}
-	}
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -198,6 +196,7 @@ extension SignInViewController: WKNavigationDelegate {
 				return
 			}
 
+			print(navigationAction.request.url)
 			decisionHandler(.allow)
 			return
 
