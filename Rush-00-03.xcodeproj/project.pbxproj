@@ -14,6 +14,9 @@
 		2A9D4F6C28ABED1100F0119B /* EventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9D4F6A28ABED1100F0119B /* EventsViewController.swift */; };
 		2A9D4F6F28AC070F00F0119B /* Coalition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9D4F6D28AC070F00F0119B /* Coalition.swift */; };
 		2A9D4F7028AC070F00F0119B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9D4F6E28AC070F00F0119B /* ProfileViewController.swift */; };
+		2A9D4F9628AD047F00F0119B /* SubscribeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9D4F9528AD047F00F0119B /* SubscribeViewController.swift */; };
+		2A9D4F9828AD09BD00F0119B /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9D4F9728AD09BD00F0119B /* EventTableViewCell.swift */; };
+		2A9D4F9A28AD40E300F0119B /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9D4F9928AD40E300F0119B /* Manager.swift */; };
 		85979D7428AC0C30006A1C42 /* CursUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85979D6528AC0C30006A1C42 /* CursUser.swift */; };
 		85979D7528AC0C30006A1C42 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85979D6628AC0C30006A1C42 /* Profile.swift */; };
 		85979D7628AC0C30006A1C42 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85979D6728AC0C30006A1C42 /* User.swift */; };
@@ -44,6 +47,9 @@
 		2A9D4F6A28ABED1100F0119B /* EventsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsViewController.swift; sourceTree = "<group>"; };
 		2A9D4F6D28AC070F00F0119B /* Coalition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coalition.swift; sourceTree = "<group>"; };
 		2A9D4F6E28AC070F00F0119B /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		2A9D4F9528AD047F00F0119B /* SubscribeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeViewController.swift; sourceTree = "<group>"; };
+		2A9D4F9728AD09BD00F0119B /* EventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
+		2A9D4F9928AD40E300F0119B /* Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
 		85979D6528AC0C30006A1C42 /* CursUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CursUser.swift; sourceTree = "<group>"; };
 		85979D6628AC0C30006A1C42 /* Profile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		85979D6728AC0C30006A1C42 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -104,6 +110,9 @@
 				85979D6428AC0C30006A1C42 /* Model */,
 				2A9D4F5C28ABDF1300F0119B /* Assets.xcassets */,
 				2A9D4F6128ABDF1300F0119B /* Info.plist */,
+				2A9D4F9528AD047F00F0119B /* SubscribeViewController.swift */,
+				2A9D4F9728AD09BD00F0119B /* EventTableViewCell.swift */,
+				2A9D4F9928AD40E300F0119B /* Manager.swift */,
 			);
 			path = "Rush-00-03";
 			sourceTree = "<group>";
@@ -205,6 +214,7 @@
 				85A23EC228AC10CB00143E53 /* MainViewController.swift in Sources */,
 				85979D8628AC0C5B006A1C42 /* Service.swift in Sources */,
 				2A9D4F6B28ABED1100F0119B /* Event.swift in Sources */,
+				2A9D4F9828AD09BD00F0119B /* EventTableViewCell.swift in Sources */,
 				85979D8028AC0C30006A1C42 /* Languag.swift in Sources */,
 				2A9D4F5428ABDF1300F0119B /* AppDelegate.swift in Sources */,
 				85979D7A28AC0C30006A1C42 /* ExpertisUser.swift in Sources */,
@@ -216,10 +226,12 @@
 				85979D7428AC0C30006A1C42 /* CursUser.swift in Sources */,
 				85979D7D28AC0C30006A1C42 /* Curs.swift in Sources */,
 				85979D7B28AC0C30006A1C42 /* LanguageUser.swift in Sources */,
+				2A9D4F9A28AD40E300F0119B /* Manager.swift in Sources */,
 				2A9D4F6828ABE18200F0119B /* SignInViewController.swift in Sources */,
 				85979D7728AC0C30006A1C42 /* Project.swift in Sources */,
 				85979D8128AC0C30006A1C42 /* Token.swift in Sources */,
 				85A23EC428AC358A00143E53 /* Waitlist.swift in Sources */,
+				2A9D4F9628AD047F00F0119B /* SubscribeViewController.swift in Sources */,
 				85979D7828AC0C30006A1C42 /* Campus.swift in Sources */,
 				85979D7528AC0C30006A1C42 /* Profile.swift in Sources */,
 				85979D7628AC0C30006A1C42 /* User.swift in Sources */,
@@ -358,7 +370,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -368,7 +380,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -385,7 +397,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -395,7 +407,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

@@ -33,6 +33,9 @@ import Foundation
 
 //     MARK: - Event
 struct Event: Decodable {
+    
+    static var allEvents: [Event] = []
+    
 	let id: Int?
 	let name: String?
 	let descriptionEvent: String?

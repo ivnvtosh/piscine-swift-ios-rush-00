@@ -39,6 +39,7 @@ class SignInViewController: UIViewController {
 
 		self.view.addSubview(self.webView)
 		webView.navigationDelegate = self
+        
 	}
 
 	override func viewDidLayoutSubviews() {
@@ -80,10 +81,22 @@ class SignInViewController: UIViewController {
 
 
 	func goToTableControler(profile: Profile, events: Events) {
-		print(events)
-		// Something...
+        print(events)
+        
+        Event.allEvents = events
+        
+        DispatchQueue.main.async {
+            
+                let second = ProfileViewController()
+                second.profile = profile
+                
+                let navVC = UINavigationController(rootViewController: second)
+                navVC.modalPresentationStyle = .fullScreen
 
-
+                self.present(navVC, animated: true)
+            
+            
+        }
 	}
 
 
@@ -186,12 +199,13 @@ extension SignInViewController: WKNavigationDelegate {
 							}
 
 							self.events = events
-							self.goToTableControler(profile: self.profile!, events: self.events!)
+                            
+                            self.goToTableControler(profile: self.profile!, events: self.events!)
 						}
 					}
 				}
 
-				dismiss(animated: true)
+//				dismiss(animated: true)
 				decisionHandler(.cancel)
 				return
 			}

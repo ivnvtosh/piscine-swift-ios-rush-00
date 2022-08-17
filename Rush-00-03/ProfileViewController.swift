@@ -7,9 +7,22 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    var profile: Profile?
 
 	public var coalitionColor: UIColor!
+    
+    private lazy var eventsTableView: UITableView = {
+        let eventsTableView = UITableView()
+        
+        eventsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "eventCell")
+        eventsTableView.dataSource = self
+        
+        eventsTableView.delegate = self
+        
+        return eventsTableView
+    }()
 
 	private lazy var scrollView: UIScrollView = {
 		let scrollView = UIScrollView()
@@ -43,9 +56,26 @@ class ProfileViewController: UIViewController {
 
 //  MARK: - Content
 	private lazy var imageView: UIImageView = {
+        
+        print(profile)
+        
 		let imageView = UIImageView()
+        
+        guard let url = profile?.newImageURL else {
+            return imageView
+        }
+        
+        Manager.shared.loadImage(with: URL(string: "https://cdn.intra.42.fr/users/default.png")) { image in
+            guard let image = image else {
+                return
+            }
+            DispatchQueue.main.async {
+                imageView.image = image
+            }
+        }
 
-		imageView.image = UIImage(systemName: "person.circle")
+
+		
 		imageView.tintColor = .systemGray5
 		imageView.contentMode = .scaleAspectFill
 
@@ -55,7 +85,7 @@ class ProfileViewController: UIViewController {
 	private lazy var labelDisplayName: UILabel = {
 		let label = UILabel()
 
-		label.text = "Display name"
+        label.text = profile?.displayname
 		label.textColor = coalitionColor
 		label.textAlignment = .center
 
@@ -65,7 +95,7 @@ class ProfileViewController: UIViewController {
 	private lazy var labelWallet: UILabel = {
 		let label = UILabel()
 
-		label.text = "Wallet"
+        label.text = profile?.wallet?.description
 		label.textColor = coalitionColor
 		label.textAlignment = .center
 
@@ -75,7 +105,7 @@ class ProfileViewController: UIViewController {
 	private lazy var labelPoints: UILabel = {
 		let label = UILabel()
 
-		label.text = "Evaluation points"
+		label.text = ""
 		label.textColor = coalitionColor
 		label.textAlignment = .center
 
@@ -85,7 +115,7 @@ class ProfileViewController: UIViewController {
 	private lazy var labelCursus: UILabel = {
 		let label = UILabel()
 
-		label.text = "Cursus"
+        label.text = ""
 		label.textColor = coalitionColor
 		label.textAlignment = .center
 
@@ -95,12 +125,47 @@ class ProfileViewController: UIViewController {
 	private lazy var labelGrade: UILabel = {
 		let label = UILabel()
 
-		label.text = "Grade"
+        label.text = profile?.cursusUser[1].level?.description
 		label.textColor = coalitionColor
 		label.textAlignment = .center
 
 		return label
 	}()
+    
+    private lazy var labelFree: UILabel = {
+        let label = UILabel()
+
+        label.text = ""
+        label.textColor = coalitionColor
+        label.textAlignment = .center
+
+        return label
+    }()
+    
+    @objc func logOutAction(_ sender : UIButton) {
+
+        let second = MainViewController()
+
+//            let navVC = UINavigationController(rootViewController: second)
+//            navVC.modalPresentationStyle = .fullScreen
+        
+        second.modalPresentationStyle = .overCurrentContext
+
+        self.present(second, animated: false)
+        
+    }
+
+    private lazy var logOutButton: UIButton = {
+        let logOutButton = UIButton(frame: CGRect(x: 0, y: 0, width: 300.00, height: 30.00))
+
+        logOutButton.backgroundColor = UIColor(named: "42 green")
+        logOutButton.setTitle("LOG OUT", for: .normal)
+        logOutButton.setTitleColor(.white, for: .normal)
+        logOutButton.addTarget(self, action: #selector(logOutAction(_:)), for:.touchUpInside)
+
+        return logOutButton
+    }()
+
 
 	private var contentSize: CGSize {
 		CGSize(width: self.view.frame.width,
@@ -119,14 +184,52 @@ class ProfileViewController: UIViewController {
 
 		self.stackView.addArrangedSubview(self.labelWallet)
 		self.stackView.addArrangedSubview(self.labelPoints)
-		self.stackView.addArrangedSubview(self.labelCursus)
+		
 		self.stackView.addArrangedSubview(self.labelGrade)
-
-		setupViewConstraints()
         
-        self.modalPresentationStyle = .fullScreen
+        //------------------------------------------------------
+    
+        self.stackView.addArrangedSubview(self.labelFree)
+        
+        self.stackView.addArrangedSubview(self.logOutButton)
+        
+        self.stackView.addArrangedSubview(self.labelCursus)
+        
+        self.stackView.addArrangedSubview(eventsTableView)
+        
+//        eventsTableView.topAnchor.constraint(equalTo:logOutButton.topAnchor).isActive = true
+        eventsTableView.leadingAnchor.constraint(equalTo:view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        eventsTableView.trailingAnchor.constraint(equalTo:view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+//        eventsTableView.bottomAnchor.constraint(equalTo:view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        
+        setupViewConstraints()
     }
 
+    //-----------------------------------------------------------------------
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return Event.allEvents.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "eventCell", for: indexPath)
+        cell.textLabel?.text = Event.allEvents[indexPath.row].name
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("selected cell \(indexPath.row)")
+        
+        let second = SubscribeViewController()
+
+        let navVC = UINavigationController(rootViewController: second)
+        navVC.modalPresentationStyle = .fullScreen
+
+        second.event = Event.allEvents[indexPath.row]
+        
+        navigationController!.pushViewController(second, animated: true)
+        
+    }
 
 }
 
@@ -171,8 +274,22 @@ extension ProfileViewController {
 			self.labelGrade.widthAnchor.constraint(equalToConstant: 200),
 			self.labelGrade.heightAnchor.constraint(equalToConstant: 20)
 									])
+        
+        NSLayoutConstraint.activate([
+            self.labelFree.widthAnchor.constraint(equalToConstant: 200),
+            self.labelFree.heightAnchor.constraint(equalToConstant: 20)
+                                    ])
+        
+        NSLayoutConstraint.activate([
+            self.logOutButton.widthAnchor.constraint(equalToConstant: 200),
+            self.logOutButton.heightAnchor.constraint(equalToConstant: 50)
+                                    ])
+        
+        NSLayoutConstraint.activate([
+            self.eventsTableView.heightAnchor.constraint(equalToConstant: 200)
+                                    ])
 
 	}
-
+    
 }
 

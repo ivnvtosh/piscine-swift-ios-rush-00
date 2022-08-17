@@ -43,4 +43,3 @@ struct CursUser: Decodable {
 }
 
 typealias CursusUser = [CursUser]
-

@@ -64,8 +64,6 @@ class MainViewController: UIViewController {
 		navVC.modalPresentationStyle = .fullScreen
 
 		present(navVC, animated: true)
-
-
 	}
 
 	private lazy var loginButton: UIButton = {
@@ -82,6 +80,8 @@ class MainViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
+        self.modalPresentationStyle = .overCurrentContext
+        
 		self.view.addSubview(self.scrollView)
 		self.scrollView.addSubview(self.contentView)
 		self.contentView.addSubview(self.stackView)
