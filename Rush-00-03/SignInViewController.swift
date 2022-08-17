@@ -210,7 +210,6 @@ extension SignInViewController: WKNavigationDelegate {
 				return
 			}
 
-			print(navigationAction.request.url)
 			decisionHandler(.allow)
 			return
 

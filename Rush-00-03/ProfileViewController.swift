@@ -57,25 +57,18 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
 //  MARK: - Content
 	private lazy var imageView: UIImageView = {
         
-        print(profile)
-        
 		let imageView = UIImageView()
-        
-        guard let url = profile?.newImageURL else {
-            return imageView
-        }
-        
+
         Manager.shared.loadImage(with: URL(string: "https://cdn.intra.42.fr/users/default.png")) { image in
             guard let image = image else {
                 return
             }
+
             DispatchQueue.main.async {
                 imageView.image = image
             }
         }
 
-
-		
 		imageView.tintColor = .systemGray5
 		imageView.contentMode = .scaleAspectFill
 
@@ -172,6 +165,15 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
 			   height: self.view.frame.height + 500)
 	}
 
+	override func viewDidLayoutSubviews() {
+		//        eventsTableView.topAnchor.constraint(equalTo:logOutButton.topAnchor).isActive = true
+				eventsTableView.leadingAnchor.constraint(equalTo:view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+				eventsTableView.trailingAnchor.constraint(equalTo:view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+		//        eventsTableView.bottomAnchor.constraint(equalTo:view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+				
+				setupViewConstraints()
+	}
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -197,12 +199,6 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         
         self.stackView.addArrangedSubview(eventsTableView)
         
-//        eventsTableView.topAnchor.constraint(equalTo:logOutButton.topAnchor).isActive = true
-        eventsTableView.leadingAnchor.constraint(equalTo:view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        eventsTableView.trailingAnchor.constraint(equalTo:view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-//        eventsTableView.bottomAnchor.constraint(equalTo:view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        
-        setupViewConstraints()
     }
 
     //-----------------------------------------------------------------------

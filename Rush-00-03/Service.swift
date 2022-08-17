@@ -5,7 +5,7 @@
 //  Created by Anton Ivanov on 16.08.2022.
 //
 
-import Foundation
+import UIKit
 
 
 //   MARK: - API42Error
@@ -22,8 +22,11 @@ private enum API42Error: Error {
 //      MARK: - API42Type
 private enum API42Type {
 
+	case defaultPhoto
+
 	case v2Me
 	case v2UsersUserIdEvents(Int)
+	case v2Campus(Int)
 
 	case oauthTokenInfo
 	case oauthToken(String)
@@ -47,10 +50,14 @@ private enum API42Type {
 
 	private var path: String {
 		switch self {
+		case .defaultPhoto:
+			return "users/default.png"
 		case .v2Me:
 			return "v2/me"
 		case .v2UsersUserIdEvents(let userId):
 			return "/v2/users/\(userId)/events"
+		case .v2Campus(let campusId):
+			return "v2/campus/\(campusId)"
 		case .oauthTokenInfo:
 			return "oauth/token/info"
 		case .oauthToken:
@@ -99,9 +106,13 @@ private enum API42Type {
 
 	private var method: String {
 		switch self {
+		case .defaultPhoto:
+			return "GET"
 		case .v2Me:
 			return "GET"
 		case .v2UsersUserIdEvents:
+			return "GET"
+		case .v2Campus:
 			return "GET"
 		case .oauthTokenInfo:
 			return "GET"
@@ -176,7 +187,36 @@ class API42Manager {
 	}
 
 	public func getEvents(userId: Int, completion: @escaping (Events?, Error?) -> Void) {
-		executeRequest(with: API42Type.v2UsersUserIdEvents(userId), completion: completion)
+//		executeRequest(with: API42Type.v2UsersUserIdEvents(userId), completion: completion)
+		
+		//	https://api.intra.42.fr/v2/campus/\(campusId)/cursus/\(cursusId)/events?filter[future]=true
+		  guard let url = URL(string: "https://api.intra.42.fr/" +
+									  "/v2/campus/17/events" +
+									  "") else {
+			  return
+		  }
+  //ContentType as application/vnd.api+json.
+		  var request = URLRequest(url: url)
+		  request.httpMethod = "GET"
+		  request.allHTTPHeaderFields = ["Authorization" : "Bearer \(accessToken!)"]
+
+		  URLSession.shared.dataTask(with: request) { data, response, error in
+			  if let error = error {
+				  completion(nil, error)
+			  }
+
+			  guard let data = data else {
+				  completion(nil, API42Error.noData)
+				  return
+			  }
+
+			  guard let object = try? JSONDecoder().decode(Events.self, from: data) else {
+				  completion(nil, API42Error.failedToDecode(String(data: data, encoding: .utf8) ?? "Unknown encoding"))
+				  return
+			  }
+
+			  completion(object, nil)
+		  }.resume()
 	}
 
 	public func getTokenInfo(completion: @escaping (TokenInfo?, Error?) -> Void) {
@@ -185,6 +225,10 @@ class API42Manager {
 
 	public func getToken(code: String, completion: @escaping (Token?, Error?) -> Void) {
 		executeRequest(with: API42Type.oauthToken(code), completion: completion)
+	}
+
+	public func getCampus(by id: Int, completion: @escaping (Campus?, Error?) -> Void) {
+		executeRequest(with: API42Type.v2Campus(id), completion: completion)
 	}
 
 	public func getCode(completion: @escaping (URLRequest?, Error?) -> Void) {
@@ -208,8 +252,60 @@ class API42Manager {
 //		completion(request, nil)
 	}
 
+	func loadImage(with url: URL?, completion: @escaping (UIImage?, Error?) -> Void) {
+		var request = URLRequest(url: url!)
+		request.httpMethod = "GET"
+		request.allHTTPHeaderFields = ["Authorization" : "Bearer \(accessToken!)"]
+
+		URLSession.shared.dataTask(with: request) { data, response, error in
+			if let error = error {
+				completion(nil, error)
+			}
+
+			guard let data = data else {
+				completion(nil, API42Error.noData)
+				return
+			}
+
+			let image = UIImage(data: data)
+			completion(image, nil)
+		}
+	}
 }
 
 
 typealias Parametrs = [String : String]
+
+
+class Manager {
+
+	static let shared = Manager()
+
+	func loadImage(with url: URL?, completion: @escaping (UIImage?) -> Void) {
+		guard let url = url else {
+			print("Invalid URL")
+			return
+		}
+
+		var request = URLRequest(url: url)
+		request.allHTTPHeaderFields = ["Authorization" : "Bearer \(API42Manager.shared.accessToken!)"]
+		URLSession.shared.dataTask(with: request) { data, response, error in
+			if let error = error {
+				print(error)
+				completion(nil)
+			}
+
+			guard let data = data else {
+				print("No data available")
+				completion(nil)
+				return
+			}
+
+			let image = UIImage(data: data)
+			completion(image)
+
+		}.resume()
+	}
+
+}
 

@@ -63,7 +63,7 @@ class EventsViewController: UIViewController, UITableViewDataSource, UITableView
         let subscribeViewController = segue.destination as! SubscribeViewController
         subscribeViewController.eventDate = cell.textLabel?.text
         
-        print(cell.textLabel?.text)
+//        print(cell.textLabel?.text)
     }
 
 }
